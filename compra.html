@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprar Playera - Jerseys Retro</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+            text-align: center;
+            line-height: 1.6;
+        }
+        header {
+            background-color: #1a252f;
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .logo {
+            max-width: 100px;
+            height: auto;
+            border-radius: 15px;
+        }
+        .header-text {
+            text-align: left;
+        }
+        .header-text h1 {
+            margin: 0;
+            font-size: 2.5em;
+            color: #ffffff;
+        }
+        .header-text p {
+            margin: 0;
+            font-size: 1.2em;
+            font-style: italic;
+            color: #FFD700;
+        }
+        .purchase-section {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .purchase-section img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .purchase-section h2 {
+            color: #1a252f;
+            font-size: 2em;
+            margin-top: 20px;
+        }
+        .price {
+            font-size: 1.5em;
+            color: #e67e22;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+        .description {
+            text-align: left;
+            margin: 20px 0;
+            color: #2c3e50;
+            font-size: 1.1em;
+            line-height: 1.8;
+        }
+        .description ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+        .quantity {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        .quantity button {
+            padding: 8px 15px;
+            font-size: 1em;
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .quantity button:hover {
+            background-color: #34495e;
+            transform: scale(1.1);
+        }
+        .quantity input {
+            width: 60px;
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .cart-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #e67e22, #d35400);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(230, 126, 34, 0.3);
+        }
+        .cart-button:hover {
+            background: linear-gradient(135deg, #d35400, #e67e22);
+            transform: translateY(-2px);
+        }
+        .cart-section {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        .cart-icon {
+            display: inline-block;
+            background-color: #e67e22;
+            color: white;
+            padding: 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 2px 5px rgba(230, 126, 34, 0.3);
+            transition: all 0.3s ease;
+        }
+        .cart-icon:hover {
+            background-color: #d35400;
+            transform: scale(1.1);
+        }
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: white;
+            color: #e67e22;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            font-size: 0.9em;
+        }
+        footer {
+            background-color: #1a252f;
+            color: white;
+            padding: 20px;
+            margin-top: 40px;
+            text-align: center;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        }
+        footer p {
+            margin: 0;
+            color: #ecf0f1;
+            font-size: 1em;
+        }
+        .reviews-section {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+        .reviews-section h2 {
+            color: #1a252f;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .review {
+            border-bottom: 1px solid #ddd;
+            padding: 15px 0;
+            text-align: left;
+        }
+        .review:last-child {
+            border-bottom: none;
+        }
+        .review p {
+            margin: 5px 0;
+        }
+        .review .author {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .review .date {
+            font-size: 0.9em;
+            color: #7f8c8d;
+        }
+        .review-form {
+            margin-top: 30px;
+            text-align: left;
+        }
+        .review-form h3 {
+            color: #1a252f;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        .review-form label {
+            display: block;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+        .review-form input, .review-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        .review-form button {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #e67e22, #d35400);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .review-form button:hover {
+            background: linear-gradient(135deg, #d35400, #e67e22);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="images/logo.png" alt="Logo Jerseys Retro" class="logo">
+        <div class="header-text">
+            <h1>Jerseys Retro</h1>
+            <p>"Revive la nostalgia del fútbol"</p>
+        </div>
+    </header>
+
+    <section class="purchase-section">
+        <img id="productImage" src="images/images1.jpg" alt="Jersey Retro">
+        <h2 id="productName">Jersey Retro</h2>
+        <p class="price" id="productPrice">$49.99</p>
+        <div class="description" id="productDescription">
+            <p>Descripción del producto se cargará aquí.</p>
+        </div>
+        <div class="quantity">
+            <label for="quantity">Cantidad:</label>
+            <button onclick="changeQuantity(-1)">-</button>
+            <input type="number" id="quantity" min="1" value="1">
+            <button onclick="changeQuantity(1)">+</button>
+        </div>
+        <button class="cart-button" onclick="addToCart()">Agregar al Carrito</button>
+    </section>
+
+    <section class="reviews-section">
+        <h2>Reseñas del Producto</h2>
+        <div class="review">
+            <p class="author">Juan Pérez</p>
+            <p class="date">15 de junio de 2025</p>
+            <p>¡Excelente calidad! El jersey es justo como se ve en las fotos, muy cómodo y los detalles son impresionantes. ¡100% recomendado!</p>
+        </div>
+        <div class="review">
+            <p class="author">María González</p>
+            <p class="date">10 de junio de 2025</p>
+            <p>Me encanta el diseño retro, trae muchos recuerdos. La tela es suave y el envío fue rapidísimo. ¡Volveré a comprar!</p>
+        </div>
+        <div class="review">
+            <p class="author">Carlos Ramírez</p>
+            <p class="date">5 de junio de 2025</p>
+            <p>Buen producto, aunque me gustaría que hubiera más tallas disponibles. Por lo demás, todo perfecto.</p>
+        </div>
+        <div class="review-form">
+            <h3>Deja tu reseña</h3>
+            <form id="reviewForm">
+                <label for="reviewName">Nombre:</label>
+                <input type="text" id="reviewName" required>
+                <label for="reviewText">Reseña:</label>
+                <textarea id="reviewText" rows="4" required></textarea>
+                <button type="submit">Enviar Reseña</button>
+            </form>
+        </div>
+    </section>
+
+    <div class="cart-section">
+        <a href="carrito.html" class="cart-icon">
+            🛒
+            <span class="cart-count" id="cartCount">0</span>
+        </a>
+    </div>
+
+    <footer>
+        <p>© 2025 Jerseys Retro - Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let currentProduct = JSON.parse(localStorage.getItem('selectedProduct')) || { name: 'Jersey Retro', price: 49.99, image: 'images/images1.jpg' };
+
+        const productDescriptions = {
+            'Jersey Retro 1998': {
+                intro: 'Revive la emoción del Mundial de Francia 1998 con esta edición especial del Jersey Retro 1998. Este diseño captura la pasión y el estilo de una de las competiciones más memorables del fútbol.',
+                features: [
+                    '<strong>Material:</strong> Algodón premium para una comodidad superior y transpirabilidad.',
+                    '<strong>Diseño:</strong> Colores vibrantes y escudo oficial del torneo, fiel al original.',
+                    '<strong>Detalles:</strong> Bordados de alta calidad y costuras reforzadas para mayor durabilidad.',
+                    '<strong>Historia:</strong> Inspirado en los momentos icónicos del Mundial de 1998, perfecto para coleccionistas.'
+                ],
+                outro: 'Ideal para lucir en eventos deportivos o como pieza de colección. ¡Siente la nostalgia del fútbol en cada detalle!'
+            },
+            'Jersey Clásico 1986': {
+                intro: 'Inspirado en la leyenda del fútbol de los 80, el Jersey Clásico 1986 rinde homenaje a una era dorada. Su diseño auténtico evoca los momentos gloriosos del Mundial de México 1986.',
+                features: [
+                    '<strong>Material:</strong> Poliéster ligero y resistente, ideal para uso diario.',
+                    '<strong>Diseño:</strong> Escudo original y colores icónicos que reflejan la pasión de los 80.',
+                    '<strong>Detalles:</strong> Ajuste clásico con acabados premium para un look atemporal.',
+                    '<strong>Historia:</strong> Un tributo a las estrellas que brillaron en 1986, imprescindible para fans.'
+                ],
+                outro: 'Perfecto para revivir la magia del fútbol clásico. ¡Lleva contigo un pedazo de historia!'
+            },
+            'Jersey Vintage 1970': {
+                intro: 'El Jersey Vintage 1970 es un clásico que celebra el fútbol de los 70. Inspirado en el Mundial de México 1970, este diseño trae de vuelta los colores icónicos de una época inolvidable.',
+                features: [
+                    '<strong>Material:</strong> Algodón de alta calidad para un tacto suave y duradero.',
+                    '<strong>Diseño:</strong> Paleta de colores vibrantes y detalles retro auténticos.',
+                    '<strong>Detalles:</strong> Costuras reforzadas y bordados clásicos, ideal para coleccionistas.',
+                    '<strong>Historia:</strong> Un homenaje a los momentos legendarios del fútbol en los 70.'
+                ],
+                outro: 'Una pieza imprescindible para cualquier aficionado al fútbol retro. ¡Hazlo tuyo hoy!'
+            },
+            'Jersey Retro 1994': {
+                intro: 'El Jersey Retro 1994 captura la esencia del Mundial de Estados Unidos 1994. Este diseño emblemático combina estilo y nostalgia en una prenda única.',
+                features: [
+                    '<strong>Material:</strong> Poliéster ligero y transpirable, perfecto para cualquier ocasión.',
+                    '<strong>Diseño:</strong> Colores intensos y escudo oficial, fiel al torneo de 1994.',
+                    '<strong>Detalles:</strong> Acabados de alta calidad con un ajuste cómodo y moderno.',
+                    '<strong>Historia:</strong> Inspirado en los partidos épicos que definieron el Mundial de 1994.'
+                ],
+                outro: 'Ideal para fans y coleccionistas que quieren revivir la emoción de los 90. ¡Consíguelo ahora!'
+            },
+            'Jersey Clásico 1982': {
+                intro: 'Revive los vibrantes años 80 con el Jersey Clásico 1982. Inspirado en el Mundial de España 1982, este diseño único combina colores intensos y un estilo inolvidable.',
+                features: [
+                    '<strong>Material:</strong> Mezcla de algodón y poliéster para comodidad y resistencia.',
+                    '<strong>Diseño:</strong> Colores auténticos y escudo clásico que evocan los 80.',
+                    '<strong>Detalles:</strong> Ajuste perfecto con acabados premium y costuras duraderas.',
+                    '<strong>Historia:</strong> Un tributo a los momentos que marcaron el fútbol en 1982.'
+                ],
+                outro: 'Perfecto para lucir con orgullo en cualquier ocasión. ¡Lleva la pasión de los 80 contigo!'
+            },
+            'Jersey Vintage 1966': {
+                intro: 'El Jersey Vintage 1966 es un homenaje al fútbol de los 60, inspirado en el Mundial de Inglaterra 1966. Esta prenda captura la elegancia y la historia de una era icónica.',
+                features: [
+                    '<strong>Material:</strong> Tejido de alta calidad que combina suavidad y durabilidad.',
+                    '<strong>Diseño:</strong> Detalles retro y escudo original que reflejan el espíritu de 1966.',
+                    '<strong>Detalles:</strong> Bordados finos y costuras reforzadas para un look auténtico.',
+                    '<strong>Historia:</strong> Una pieza que celebra los momentos históricos del fútbol en los 60.'
+                ],
+                outro: 'Ideal para coleccionistas y aficionados al fútbol clásico. ¡Revive la historia con este jersey!'
+            }
+        };
+
+        window.onload = function() {
+            updateProductDisplay();
+            updateCartCount();
+            document.getElementById('reviewForm').addEventListener('submit', submitReview);
+        };
+
+        function updateProductDisplay() {
+            document.getElementById('productImage').src = currentProduct.image;
+            document.getElementById('productName').textContent = currentProduct.name;
+            document.getElementById('productPrice').textContent = `$${currentProduct.price.toFixed(2)}`;
+
+            const descriptionDiv = document.getElementById('productDescription');
+            const desc = productDescriptions[currentProduct.name] || {
+                intro: 'Un jersey retro que captura la esencia del fútbol clásico.',
+                features: [
+                    '<strong>Material:</strong> Alta calidad para comodidad y durabilidad.',
+                    '<strong>Diseño:</strong> Colores y escudo auténticos.',
+                    '<strong>Detalles:</strong> Acabados premium y ajuste cómodo.'
+                ],
+                outro: 'Perfecto para aficionados al fútbol retro.'
+            };
+
+            descriptionDiv.innerHTML = `
+                <p>${desc.intro}</p>
+                <ul>
+                    ${desc.features.map(feature => `<li>${feature}</li>`).join('')}
+                </ul>
+                <p>${desc.outro}</p>
+            `;
+        }
+
+        function addToCart() {
+            const quantity = parseInt(document.getElementById('quantity').value);
+            const item = {
+                name: currentProduct.name,
+                price: currentProduct.price,
+                quantity: quantity
+            };
+            cart.push(item);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            alert(`${quantity} ${currentProduct.name}(s) agregada(s) al carrito!`);
+        }
+
+        function changeQuantity(change) {
+            const quantityInput = document.getElementById('quantity');
+            let currentValue = parseInt(quantityInput.value);
+            currentValue += change;
+            if (currentValue < 1) currentValue = 1;
+            quantityInput.value = currentValue;
+        }
+
+        function updateCartCount() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = totalItems;
+        }
+
+        function submitReview(event) {
+            event.preventDefault();
+            const name = document.getElementById('reviewName').value;
+            const text = document.getElementById('reviewText').value;
+            const date = new Date().toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
+            
+            const reviewsSection = document.querySelector('.reviews-section');
+            const newReview = document.createElement('div');
+            newReview.classList.add('review');
+            newReview.innerHTML = `
+                <p class="author">${name}</p>
+                <p class="date">${date}</p>
+                <p>${text}</p>
+            `;
+            reviewsSection.insertBefore(newReview, document.querySelector('.review-form'));
+            
+            document.getElementById('reviewForm').reset();
+            alert('¡Reseña enviada con éxito!');
+        }
+
+        console.log("¡Cargada la página de compra!");
+    </script>
+</body>
+</html>

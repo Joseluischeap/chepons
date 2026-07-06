@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras - Jerseys Retro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .cart-section {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        .cart-item span {
+            font-size: 1.1em;
+        }
+        .remove-button {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background-color 0.3s;
+        }
+        .remove-button:hover {
+            background-color: #c0392b;
+        }
+        .total {
+            font-size: 1.5em;
+            color: #e74c3c;
+            margin-top: 20px;
+        }
+        .empty-cart {
+            font-size: 1.2em;
+            color: #666;
+        }
+        .checkout-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: #e74c3c;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            margin-top: 20px;
+        }
+        .checkout-button:hover {
+            background-color: #c0392b;
+        }
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            margin-top: 40px;
+        }
+        footer p {
+            margin: 0;
+            color: white;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Carrito de Compras</h1>
+    </header>
+
+    <section class="cart-section" id="cartItems">
+        <div id="cartContent"></div>
+        <div id="cartTotal" class="total"></div>
+        <a href="pago.html" class="checkout-button" id="checkoutButton" style="display: none;">Proceder al Pago</a>
+    </section>
+
+    <footer>
+        <p>© 2025 Jerseys Retro - Todos los derechos reservados.</p>
+        <p>Contáctanos: info@jerseysretro.com | Síguenos en redes sociales</p>
+    </footer>
+
+    <script>
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        function displayCart() {
+            const cartContent = document.getElementById('cartContent');
+            const cartTotal = document.getElementById('cartTotal');
+            const checkoutButton = document.getElementById('checkoutButton');
+
+            if (cart.length === 0) {
+                cartContent.innerHTML = '<p class="empty-cart">El carrito está vacío.</p>';
+                cartTotal.innerHTML = '';
+                checkoutButton.style.display = 'none';
+            } else {
+                cartContent.innerHTML = cart.map((item, index) => `
+                    <div class="cart-item">
+                        <span>${item.name}</span>
+                        <span>Cantidad: ${item.quantity}</span>
+                        <span>$${(item.price * item.quantity).toFixed(2)}</span>
+                        <button class="remove-button" onclick="removeItem(${index})">Eliminar</button>
+                    </div>
+                `).join('');
+                const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+                cartTotal.innerHTML = `Total: $${total.toFixed(2)}`;
+                checkoutButton.style.display = 'inline-block';
+            }
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1); // Elimina el ítem en la posición index
+            localStorage.setItem('cart', JSON.stringify(cart)); // Actualiza localStorage
+            displayCart(); // Refresca la vista del carrito
+        }
+
+        window.onload = function() {
+            displayCart();
+        };
+
+        console.log("¡Cargada la página del carrito!");
+    </script>
+</body>
+</html>

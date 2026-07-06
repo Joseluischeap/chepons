@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colección - Jerseys Retro</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f6fa;
+            text-align: center;
+            line-height: 1.6;
+            color: #2d3436;
+        }
+        header {
+            background: linear-gradient(135deg, #1a252f, #2c3e50);
+            color: #fff;
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        .logo {
+            max-width: 120px;
+            height: auto;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+        .logo:hover {
+            transform: scale(1.1);
+        }
+        .header-text {
+            text-align: left;
+            flex-grow: 1;
+            padding-left: 20px;
+        }
+        .header-text h1 {
+            margin: 0;
+            font-size: 2.8em;
+            color: #fff;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+        }
+        .header-text p {
+            margin: 0;
+            font-size: 1.3em;
+            font-style: italic;
+            color: #ffd700;
+        }
+        .auth-section {
+            display: flex;
+            gap: 15px;
+        }
+        .login-link, .logout-link {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2em;
+            padding: 12px 25px;
+            border-radius: 25px;
+            background: linear-gradient(135deg, #e67e22, #d35400);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(230, 126, 34, 0.4);
+        }
+        .login-link:hover, .logout-link:hover {
+            background: linear-gradient(135deg, #d35400, #e67e22);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(230, 126, 34, 0.6);
+        }
+        .profile-icon {
+            font-size: 2.2em;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: none;
+        }
+        .profile-icon:hover {
+            color: #ffd700;
+            transform: scale(1.2);
+        }
+        .search-bar {
+            margin: 30px auto;
+            max-width: 600px;
+            display: flex;
+            gap: 10px;
+        }
+        .search-bar input {
+            flex-grow: 1;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            font-size: 1.1em;
+            transition: border-color 0.3s ease;
+        }
+        .search-bar input:focus {
+            border-color: #e67e22;
+            outline: none;
+        }
+        .search-bar button {
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #e67e22, #d35400);
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(230, 126, 34, 0.4);
+        }
+        .search-bar button:hover {
+            background: linear-gradient(135deg, #d35400, #e67e22);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(230, 126, 34, 0.6);
+        }
+        .collection-section {
+            max-width: 1300px;
+            margin: 50px auto;
+            padding: 30px;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+        .card-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            padding: 20px;
+        }
+        .card-link {
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+            display: block;
+        }
+        .card {
+            width: 100%;
+            height: 450px;
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.4s ease;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .card-front {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        .card-front img {
+            max-width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+        .card-back {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 37, 47, 0.9);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            padding: 20px;
+            border-radius: 15px;
+        }
+        .card-link:hover .card-back {
+            opacity: 1;
+        }
+        .card-back h3 {
+            margin: 10px 0;
+            font-size: 1.6em;
+            color: #ffd700;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+        }
+        .card-back p {
+            font-size: 1.1em;
+            color: #ecf0f1;
+            margin-bottom: 15px;
+        }
+        .cart-section {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+        .cart-icon {
+            display: inline-block;
+            background: linear-gradient(135deg, #e67e22, #d35400);
+            color: #fff;
+            padding: 18px;
+            border-radius: 50%;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(230, 126, 34, 0.4);
+            transition: all 0.3s ease;
+        }
+        .cart-icon:hover {
+            background: linear-gradient(135deg, #d35400, #e67e22);
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(230, 126, 34, 0.6);
+        }
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #fff;
+            color: #e67e22;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            line-height: 22px;
+            font-size: 1em;
+            font-weight: bold;
+        }
+        footer {
+            background: linear-gradient(135deg, #1a252f, #2c3e50);
+            color: #fff;
+            padding: 30px;
+            margin-top: 50px;
+            text-align: center;
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.2);
+        }
+        footer p {
+            margin: 0;
+            color: #ecf0f1;
+            font-size: 1.1em;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 15px 20px;
+            }
+            .header-text {
+                padding-left: 0;
+                text-align: center;
+                margin: 10px 0;
+            }
+            .header-text h1 {
+                font-size: 2.2em;
+            }
+            .header-text p {
+                font-size: 1.1em;
+            }
+            .auth-section {
+                justify-content: center;
+                width: 100%;
+            }
+            .search-bar {
+                max-width: 80%;
+                margin: 20px auto;
+            }
+            .collection-section {
+                margin: 30px 20px;
+                padding: 20px;
+            }
+            .card-gallery {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+            }
+            .card {
+                height: 400px;
+            }
+            .card-back h3 {
+                font-size: 1.4em;
+            }
+            .card-back p {
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                max-width: 100px;
+            }
+            .header-text h1 {
+                font-size: 1.8em;
+            }
+            .header-text p {
+                font-size: 1em;
+            }
+            .login-link, .logout-link {
+                font-size: 1em;
+                padding: 10px 20px;
+            }
+            .profile-icon {
+                font-size: 1.8em;
+            }
+            .search-bar {
+                flex-direction: column;
+                gap: 15px;
+                padding: 0 20px;
+            }
+            .search-bar input {
+                font-size: 1em;
+                padding: 10px;
+            }
+            .search-bar button {
+                font-size: 1em;
+                padding: 10px 20px;
+            }
+            .collection-section {
+                margin: 20px 15px;
+                padding: 15px;
+            }
+            .card-gallery {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 15px;
+            }
+            .card {
+                height: 350px;
+            }
+            .card-back h3 {
+                font-size: 1.2em;
+            }
+            .card-back p {
+                font-size: 0.9em;
+            }
+            .cart-section {
+                bottom: 20px;
+                right: 20px;
+            }
+            .cart-icon {
+                padding: 15px;
+            }
+            .cart-count {
+                width: 20px;
+                height: 20px;
+                line-height: 20px;
+                font-size: 0.9em;
+            }
+            footer p {
+                font-size: 0.9em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 10px 15px;
+            }
+            .logo {
+                max-width: 80px;
+            }
+            .header-text h1 {
+                font-size: 1.5em;
+            }
+            .header-text p {
+                font-size: 0.9em;
+            }
+            .auth-section {
+                gap: 10px;
+            }
+            .login-link, .logout-link {
+                font-size: 0.9em;
+                padding: 8px 15px;
+            }
+            .profile-icon {
+                font-size: 1.5em;
+            }
+            .search-bar {
+                padding: 0 15px;
+            }
+            .search-bar input {
+                font-size: 0.9em;
+                padding: 8px;
+            }
+            .search-bar button {
+                font-size: 0.9em;
+                padding: 8px 15px;
+            }
+            .collection-section {
+                margin: 15px 10px;
+                padding: 10px;
+            }
+            .card-gallery {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            .card {
+                height: 300px;
+            }
+            .card-back h3 {
+                font-size: 1.1em;
+            }
+            .card-back p {
+                font-size: 0.8em;
+            }
+            .cart-section {
+                bottom: 15px;
+                right: 15px;
+            }
+            .cart-icon {
+                padding: 12px;
+            }
+            .cart-count {
+                width: 18px;
+                height: 18px;
+                line-height: 18px;
+                font-size: 0.8em;
+            }
+            footer p {
+                font-size: 0.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="images/logo.png" alt="Logo Jerseys Retro" class="logo">
+        <div class="header-text">
+            <h1>Jerseys Retro</h1>
+            <p>"Revive la nostalgia del fútbol"</p>
+        </div>
+        <div class="auth-section">
+            <a href="login.html" id="loginLink" class="login-link">Iniciar Sesión/Registrarse</a>
+            <a href="#" id="logoutLink" class="logout-link" style="display: none;">Cerrar Sesión</a>
+            <div id="profileIcon" class="profile-icon">👤</div>
+        </div>
+    </header>
+
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Buscar jerseys...">
+        <button onclick="searchProducts()">Buscar</button>
+    </div>
+
+    <section class="collection-section">
+        <div class="card-gallery">
+            <a href="compra.html" class="card-link" onclick="selectProduct('Jersey Retro 1998', 49.99, 'images/images1.jpg', event)">
+                <div class="card">
+                    <div class="card-front">
+                        <img src="images/images1.jpg" alt="Jersey Retro 1998">
+                    </div>
+                    <div class="card-back">
+                        <h3>Jersey Retro 1998</h3>
+                        <p>Edición especial del Mundial de Francia 1998. Fabricado en algodón premium.</p>
+                    </div>
+                </div>
+            </a>
+            <a href="compra.html" class="card-link" onclick="selectProduct('Jersey Clásico 1986', 54.99, 'images/images2.jpg', event)">
+                <div class="card">
+                    <div class="card-front">
+                        <img src="images/images2.jpg" alt="Jersey Clásico 1986">
+                    </div>
+                    <div class="card-back">
+                        <h3>Jersey Clásico 1986</h3>
+                        <p>Inspirado en la leyenda del fútbol de los 80. Diseño auténtico con escudo original.</p>
+                    </div>
+                </div>
+            </a>
+            <a href="compra.html" class="card-link" onclick="selectProduct('Jersey Vintage 1970', 59.99, 'images/images3.jpg', event)">
+                <div class="card">
+                    <div class="card-front">
+                        <img src="images/images3.jpg" alt="Jersey Vintage 1970">
+                    </div>
+                    <div class="card-back">
+                        <h3>Jersey Vintage 1970</h3>
+                        <p>Un clásico de los 70 con colores icónicos. Perfecto para coleccionistas.</p>
+                    </div>
+                </div>
+            </a>
+            <a href="compra.html" class="card-link" onclick="selectProduct('Jersey Retro 1994', 49.99, 'images/images4.jpg', event)">
+                <div class="card">
+                    <div class="card-front">
+                        <img src="images/images4.jpg" alt="Jersey Retro 1994">
+                    </div>
+                    <div class="card-back">
+                        <h3>Jersey Retro 1994</h3>
+                        <p>Diseño emblemático del Mundial de 1994. Material ligero y duradero.</p>
+                    </div>
+                </div>
+            </a>
+            <a href="compra.html" class="card-link" onclick="selectProduct('Jersey Clásico 1982', 54.99, 'images/images5.jpg', event)">
+                <div class="card">
+                    <div class="card-front">
+                        <img src="images/images5.jpg" alt="Jersey Clásico 1982">
+                    </div>
+                    <div class="card-back">
+                        <h3>Jersey Clásico 1982</h3>
+                        <p>Revive los 80 con este diseño único. Colores intensos y ajuste perfecto.</p>
+                    </div>
+                </div>
+            </a>
+            <a href="compra.html" class="card-link" onclick="selectProduct('Jersey Vintage 1966', 59.99, 'images/images6.jpg', event)">
+                <div class="card">
+                    <div class="card-front">
+                        <img src="images/images6.jpg" alt="Jersey Vintage 1966">
+                    </div>
+                    <div class="card-back">
+                        <h3>Jersey Vintage 1966</h3>
+                        <p>Un homenaje al fútbol de los 60. Tejido de alta calidad con detalles retro.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <div class="cart-section">
+        <a href="carrito.html" class="cart-icon">
+            🛒
+            <span class="cart-count" id="cartCount">0</span>
+        </a>
+    </div>
+
+    <footer>
+        <p>© 2025 Jerseys Retro - Todos los derechos reservados.</p>
+        <p>Contacto: info@jerseysretro.com | Teléfono: +52 55 1234 5678 | Dirección: Av. Falsa 123, Ciudad de México</p>
+    </footer>
+
+    <script>
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const currentUser = localStorage.getItem('currentUser');
+        const loginLink = document.getElementById('loginLink');
+        const logoutLink = document.getElementById('logoutLink');
+        const profileIcon = document.getElementById('profileIcon');
+
+        if (currentUser) {
+            loginLink.style.display = 'none';
+            logoutLink.style.display = 'inline-block';
+            profileIcon.style.display = 'inline-block';
+            profileIcon.onclick = () => window.location.href = 'perfil.html';
+        }
+
+        logoutLink.onclick = (e) => {
+            e.preventDefault();
+            localStorage.removeItem('currentUser');
+            window.location.href = 'index.html';
+        };
+
+        function selectProduct(name, price, image, event) {
+            event.preventDefault();
+            const product = { name, price, image };
+            localStorage.setItem('selectedProduct', JSON.stringify(product));
+            window.location.href = 'compra.html';
+        }
+
+        function updateCartCount() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = totalItems;
+        }
+
+        function searchProducts() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.card-link');
+            cards.forEach(card => {
+                const name = card.querySelector('.card-back h3').textContent.toLowerCase();
+                if (name.includes(input)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        window.onload = function() {
+            updateCartCount();
+        };
+    </script>
+</body>
+</html>

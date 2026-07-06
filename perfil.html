@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil - Jerseys Retro</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f6fa, #dfe4ea);
+            text-align: center;
+            line-height: 1.6;
+            color: #2d3436;
+        }
+        header {
+            background: linear-gradient(135deg, #1a252f, #2c3e50);
+            color: #fff;
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .logo {
+            max-width: 120px;
+            height: auto;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+        .logo:hover {
+            transform: scale(1.1);
+        }
+        .header-text {
+            text-align: left;
+            flex-grow: 1;
+            padding-left: 20px;
+        }
+        .header-text h1 {
+            margin: 0;
+            font-size: 2.8em;
+            color: #fff;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+        }
+        .header-text p {
+            margin: 0;
+            font-size: 1.3em;
+            font-style: italic;
+            color: #ffd700;
+        }
+        .auth-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .profile-icon {
+            position: relative;
+            font-size: 2.5em;
+            color: #ffd700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 10px;
+            border-radius: 50%;
+            background: rgba(255, 215, 0, 0.2);
+        }
+        .profile-icon:hover {
+            color: #fff;
+            background: rgba(255, 215, 0, 0.4);
+            transform: scale(1.2);
+        }
+        .profile-icon::after {
+            content: 'Perfil';
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8em;
+            color: #fff;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .profile-icon:hover::after {
+            opacity: 1;
+        }
+        .logout-link {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2em;
+            padding: 12px 25px;
+            border-radius: 25px;
+            background: linear-gradient(135deg, #e67e22, #d35400);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(230, 126, 34, 0.4);
+        }
+        .logout-link:hover {
+            background: linear-gradient(135deg, #d35400, #e67e22);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(230, 126, 34, 0.6);
+        }
+        nav {
+            background-color: #2c3e50;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        nav ul li {
+            display: inline;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2em;
+            padding: 12px 25px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #34495e, #2c3e50);
+        }
+        nav ul li a:hover {
+            background: linear-gradient(135deg, #e67e22, #d35400);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(230, 126, 34, 0.4);
+        }
+        .profile-section {
+            max-width: 650px;
+            margin: 50px auto;
+            padding: 40px;
+            background: #fff;
+            border-radius: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+        .profile-section h2 {
+            color: #1a252f;
+            font-size: 2.5em;
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+        }
+        .profile-section p {
+            color: #34495e;
+            font-size: 1.2em;
+            margin: 15px 0;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            transition: background 0.3s ease;
+        }
+        .profile-section p:hover {
+            background: #ecf0f1;
+        }
+        .profile-section .label {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        footer {
+            background: linear-gradient(135deg, #1a252f, #2c3e50);
+            color: #fff;
+            padding: 30px;
+            margin-top: 50px;
+            text-align: center;
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.2);
+        }
+        footer p {
+            margin: 0;
+            color: #ecf0f1;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="images/logo.png" alt="Logo Jerseys Retro" class="logo">
+        <div class="header-text">
+            <h1>Jerseys Retro</h1>
+            <p>"Revive la nostalgia del fútbol"</p>
+        </div>
+        <div class="auth-section">
+            <div id="profileIcon" class="profile-icon">👤</div>
+            <a href="#" id="logoutLink" class="logout-link">Cerrar Sesión</a>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="coleccion.html">Colección</a></li>
+            <li><a href="ayuda.html">Ayuda</a></li>
+            <li><a href="equipo.html">Equipo</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <section class="profile-section">
+        <h2>Mi Perfil</h2>
+        <p><span class="label">Usuario:</span> <span id="username"></span></p>
+        <p><span class="label">Nombre Completo:</span> <span id="fullName"></span></p>
+        <p><span class="label">Correo:</span> <span id="email"></span></p>
+        <p><span class="label">Teléfono:</span> <span id="phone"></span></p>
+        <p><span class="label">Dirección:</span> <span id="address"></span></p>
+    </section>
+
+    <footer>
+        <p>© 2025 Jerseys Retro - Todos los derechos reservados.</p>
+        <p>Contacto: info@jerseysretro.com | Teléfono: +52 55 1234 5678 | Dirección: Av. Falsa 123, Ciudad de México</p>
+    </footer>
+
+    <script>
+        const currentUser = localStorage.getItem('currentUser');
+        const users = JSON.parse(localStorage.getItem('users')) || {};
+        const userData = users[currentUser] || {};
+        const logoutLink = document.getElementById('logoutLink');
+
+        document.getElementById('username').textContent = currentUser || 'No registrado';
+        document.getElementById('fullName').textContent = userData.fullName || 'No especificado';
+        document.getElementById('email').textContent = userData.email || 'No especificado';
+        document.getElementById('phone').textContent = userData.phone || 'No especificado';
+        document.getElementById('address').textContent = userData.address || 'No especificado';
+
+        if (!currentUser) {
+            alert('Debes iniciar sesión para ver tu perfil.');
+            window.location.href = 'login.html';
+        }
+
+        logoutLink.onclick = (e) => {
+            e.preventDefault();
+            localStorage.removeItem('currentUser');
+            window.location.href = 'index.html';
+        };
+    </script>
+</body>
+</html>

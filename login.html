@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio de Sesión/Registro - Jerseys Retro</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f6fa, #dfe4ea);
+            text-align: center;
+            line-height: 1.6;
+            color: #2d3436;
+        }
+        header {
+            background: linear-gradient(135deg, #1a252f, #2c3e50);
+            color: #fff;
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .logo {
+            max-width: 120px;
+            height: auto;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+        .logo:hover {
+            transform: scale(1.1);
+        }
+        .header-text {
+            text-align: left;
+            flex-grow: 1;
+            padding-left: 20px;
+        }
+        .header-text h1 {
+            margin: 0;
+            font-size: 2.8em;
+            color: #fff;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+        }
+        .header-text p {
+            margin: 0;
+            font-size: 1.3em;
+            font-style: italic;
+            color: #ffd700;
+        }
+        nav {
+            background-color: #2c3e50;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        nav ul li {
+            display: inline;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2em;
+            padding: 12px 25px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #34495e, #2c3e50);
+        }
+        nav ul li a:hover {
+            background: linear-gradient(135deg, #e67e22, #d35400);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(230, 126, 34, 0.4);
+        }
+        .login-section {
+            max-width: 550px;
+            margin: 50px auto;
+            padding: 40px;
+            background: #fff;
+            border-radius: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+        .login-section h2 {
+            color: #1a252f;
+            font-size: 2.5em;
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+        }
+        .tab-buttons {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 25px;
+        }
+        .tab-buttons button {
+            background: none;
+            border: none;
+            color: #2c3e50;
+            font-size: 1.3em;
+            cursor: pointer;
+            padding: 10px 20px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        .tab-buttons button:hover, .tab-buttons button.active {
+            color: #e67e22;
+            background: #f9f9f9;
+        }
+        .login-section form {
+            margin-top: 20px;
+        }
+        .login-section label {
+            display: block;
+            margin: 15px 0 8px;
+            color: #1a252f;
+            font-weight: bold;
+        }
+        .login-section input {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 20px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            box-sizing: border-box;
+            font-size: 1.1em;
+            transition: border-color 0.3s ease;
+        }
+        .login-section input:focus {
+            border-color: #e67e22;
+            outline: none;
+            box-shadow: 0 0 5px rgba(230, 126, 34, 0.3);
+        }
+        .login-section button {
+            background: linear-gradient(135deg, #e67e22, #d35400);
+            color: #fff;
+            padding: 14px 35px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(230, 126, 34, 0.4);
+        }
+        .login-section button:hover {
+            background: linear-gradient(135deg, #d35400, #e67e22);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(230, 126, 34, 0.6);
+        }
+        footer {
+            background: linear-gradient(135deg, #1a252f, #2c3e50);
+            color: #fff;
+            padding: 30px;
+            margin-top: 50px;
+            text-align: center;
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.2);
+        }
+        footer p {
+            margin: 0;
+            color: #ecf0f1;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="images/logo.png" alt="Logo Jerseys Retro" class="logo">
+        <div class="header-text">
+            <h1>Jerseys Retro</h1>
+            <p>"Revive la nostalgia del fútbol"</p>
+        </div>
+        <div class="auth-section">
+            <a href="#" id="logoutLink" class="logout-link" style="display: none;">Cerrar Sesión</a>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="coleccion.html">Colección</a></li>
+            <li><a href="ayuda.html">Ayuda</a></li>
+            <li><a href="equipo.html">Equipo</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <section class="login-section">
+        <h2>Inicio de Sesión o Registro</h2>
+        <div class="tab-buttons">
+            <button class="active" onclick="showTab('login')">Iniciar Sesión</button>
+            <button onclick="showTab('register')">Registrarse</button>
+        </div>
+
+        <form id="loginForm" style="display: block;" onsubmit="login(event)">
+            <label for="loginUsername">Usuario:</label>
+            <input type="text" id="loginUsername" name="loginUsername" required>
+            <label for="loginPassword">Contraseña:</label>
+            <input type="password" id="loginPassword" name="loginPassword" required>
+            <button type="submit">Iniciar Sesión</button>
+        </form>
+
+        <form id="registerForm" style="display: none;" onsubmit="register(event)">
+            <label for="registerUsername">Usuario:</label>
+            <input type="text" id="registerUsername" name="registerUsername" required>
+            <label for="registerFullName">Nombre Completo:</label>
+            <input type="text" id="registerFullName" name="registerFullName" required>
+            <label for="registerEmail">Correo:</label>
+            <input type="email" id="registerEmail" name="registerEmail" required>
+            <label for="registerPhone">Teléfono:</label>
+            <input type="tel" id="registerPhone" name="registerPhone" required>
+            <label for="registerAddress">Dirección:</label>
+            <input type="text" id="registerAddress" name="registerAddress" required>
+            <label for="registerPassword">Contraseña:</label>
+            <input type="password" id="registerPassword" name="registerPassword" required>
+            <button type="submit">Registrarse</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>© 2025 Jerseys Retro - Todos los derechos reservados.</p>
+        <p>Contacto: info@jerseysretro.com | Teléfono: +52 55 1234 5678 | Dirección: Av. Falsa 123, Ciudad de México</p>
+    </footer>
+
+    <script>
+        let users = JSON.parse(localStorage.getItem('users')) || {};
+        const logoutLink = document.getElementById('logoutLink');
+
+        if (localStorage.getItem('currentUser')) {
+            logoutLink.style.display = 'inline-block';
+        }
+
+        logoutLink.onclick = (e) => {
+            e.preventDefault();
+            localStorage.removeItem('currentUser');
+            window.location.href = 'index.html';
+        };
+
+        function showTab(tab) {
+            document.getElementById('loginForm').style.display = tab === 'login' ? 'block' : 'none';
+            document.getElementById('registerForm').style.display = tab === 'register' ? 'block' : 'none';
+            document.querySelectorAll('.tab-buttons button').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`.tab-buttons button[onclick="showTab('${tab}')"]`).classList.add('active');
+        }
+
+        function register(event) {
+            event.preventDefault();
+            const username = document.getElementById('registerUsername').value;
+            const fullName = document.getElementById('registerFullName').value;
+            const email = document.getElementById('registerEmail').value;
+            const phone = document.getElementById('registerPhone').value;
+            const address = document.getElementById('registerAddress').value;
+            const password = document.getElementById('registerPassword').value;
+
+            if (users[username]) {
+                alert('El usuario ya existe. Por favor, elige otro.');
+                return;
+            }
+
+            users[username] = { fullName, email, phone, address, password };
+            localStorage.setItem('users', JSON.stringify(users));
+            localStorage.setItem('currentUser', username);
+            alert('Registro exitoso. Ahora puedes iniciar sesión.');
+            document.getElementById('registerForm').reset();
+            window.location.href = 'index.html';
+        }
+
+        function login(event) {
+            event.preventDefault();
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+
+            if (users[username] && users[username].password === password) {
+                localStorage.setItem('currentUser', username);
+                alert('Inicio de sesión exitoso. Redirigiendo...');
+                window.location.href = 'index.html';
+            } else {
+                alert('Usuario o contraseña incorrectos.');
+            }
+        }
+    </script>
+</body>
+</html>

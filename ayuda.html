@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayuda - Jerseys Retro</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f6fa, #dfe4ea);
+            text-align: center;
+            line-height: 1.6;
+            color: #2d3436;
+        }
+        header {
+            background: linear-gradient(135deg, #1a252f, #2c3e50);
+            color: #fff;
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .logo {
+            max-width: 120px;
+            height: auto;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+        .logo:hover {
+            transform: scale(1.1);
+        }
+        .header-text {
+            text-align: left;
+            flex-grow: 1;
+            padding-left: 20px;
+        }
+        .header-text h1 {
+            margin: 0;
+            font-size: 2.8em;
+            color: #fff;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+        }
+        .header-text p {
+            margin: 0;
+            font-size: 1.3em;
+            font-style: italic;
+            color: #ffd700;
+        }
+        .auth-section {
+            display: flex;
+            gap: 15px;
+        }
+        .login-link, .logout-link {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2em;
+            padding: 12px 25px;
+            border-radius: 25px;
+            background: linear-gradient(135deg, #e67e22, #d35400);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(230, 126, 34, 0.4);
+        }
+        .login-link:hover, .logout-link:hover {
+            background: linear-gradient(135deg, #d35400, #e67e22);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(230, 126, 34, 0.6);
+        }
+        .profile-icon {
+            font-size: 2.2em;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: none;
+        }
+        .profile-icon:hover {
+            color: #ffd700;
+            transform: scale(1.2);
+        }
+        nav {
+            background-color: #2c3e50;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        nav ul li {
+            display: inline;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2em;
+            padding: 12px 25px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #34495e, #2c3e50);
+        }
+        nav ul li a:hover {
+            background: linear-gradient(135deg, #e67e22, #d35400);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(230, 126, 34, 0.4);
+        }
+        .help-section {
+            max-width: 1100px;
+            margin: 50px auto;
+            padding: 40px;
+            background: #fff;
+            border-radius: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+        .help-section h2 {
+            color: #1a252f;
+            font-size: 2.5em;
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+        }
+        .help-section h3 {
+            color: #2c3e50;
+            font-size: 1.6em;
+            margin-top: 25px;
+        }
+        .help-section p {
+            color: #34495e;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        .help-section a {
+            color: #e67e22;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .help-section a:hover {
+            color: #d35400;
+        }
+        .faq {
+            margin-top: 25px;
+        }
+        .faq-item {
+            margin-bottom: 15px;
+            background: #f9f9f9;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .faq-item:hover {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .faq-question {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: #fff;
+            padding: 15px 20px;
+            font-size: 1.3em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .faq-question:hover {
+            background: linear-gradient(135deg, #34495e, #2c3e50);
+        }
+        .faq-answer {
+            padding: 20px;
+            display: none;
+            color: #34495e;
+            background: #fff;
+        }
+        .faq-answer p {
+            margin: 0;
+            font-size: 1.1em;
+        }
+        .requirements {
+            margin-top: 25px;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 15px;
+        }
+        footer {
+            background: linear-gradient(135deg, #1a252f, #2c3e50);
+            color: #fff;
+            padding: 30px;
+            margin-top: 50px;
+            text-align: center;
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.2);
+        }
+        footer p {
+            margin: 0;
+            color: #ecf0f1;
+            font-size: 1.1em;
+        }
+        .social-icons {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .social-icons img {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            padding: 8px;
+            background: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .social-icons img:hover {
+            transform: scale(1.2);
+            background: #e67e22;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="images/logo.png" alt="Logo Jerseys Retro" class="logo">
+        <div class="header-text">
+            <h1>Jerseys Retro</h1>
+            <p>"Revive la nostalgia del fútbol"</p>
+        </div>
+        <div class="auth-section">
+            <a href="login.html" id="loginLink" class="login-link">Iniciar Sesión/Registrarse</a>
+            <a href="#" id="logoutLink" class="logout-link" style="display: none;">Cerrar Sesión</a>
+            <div id="profileIcon" class="profile-icon">👤</div>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="coleccion.html">Colección</a></li>
+            <li><a href="ayuda.html">Ayuda</a></li>
+            <li><a href="equipo.html">Equipo</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <section class="help-section">
+        <h2>Ayuda</h2>
+        <h3>¿Cómo comprar?</h3>
+        <p>Para comprar un jersey, navega por nuestra <a href="coleccion.html">colección</a>, selecciona el diseño que te guste, elige la cantidad en la página de compra y agrégalo al carrito. Luego, haz clic en el ícono del carrito (abajo a la derecha) y sigue los pasos para finalizar tu compra.</p>
+        
+        <h3>¿Cuáles son los métodos de pago?</h3>
+        <p>Aceptamos pagos mediante PayPal. Una vez que estés en la página de pago, podrás usar tu cuenta de PayPal o tarjeta de crédito/débito a través de esta plataforma.</p>
+        
+        <h3>¿Cuánto tarda el envío?</h3>
+        <p>El tiempo de envío depende de tu ubicación. Generalmente, los envíos dentro de México tardan de 3 a 7 días hábiles, mientras que los internacionales pueden tardar de 10 a 15 días hábiles.</p>
+        
+        <h3>¿Qué hago si tengo un problema con mi pedido?</h3>
+        <p>Si tienes algún inconveniente, contáctanos en <a href="contacto.html">nuestra página de contacto</a> o escribe directamente a <strong>info@jerseysretro.com</strong>. ¡Estamos aquí para ayudarte!</p>
+
+        <div class="faq">
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">¿Puedo devolver un producto?</div>
+                <div class="faq-answer">
+                    <p>Sí, aceptamos devoluciones dentro de 14 días si el producto está en su empaque original y sin usar. Contáctanos para iniciar el proceso.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">¿Ofrecen tallas personalizadas?</div>
+                <div class="faq-answer">
+                    <p>Actualmente no ofrecemos tallas personalizadas, pero estamos trabajando en esa opción. Consulta nuestra colección para las tallas disponibles.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="requirements">
+            <h3>Requisitos y Explicaciones para Compradores</h3>
+            <p>Para realizar una compra, necesitas una cuenta de PayPal o una tarjeta válida. Asegúrate de revisar las tallas disponibles en la descripción de cada producto. Recibirás un correo de confirmación tras completar tu pedido.</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 Jerseys Retro - Todos los derechos reservados.</p>
+        <p>Contacto: info@jerseysretro.com | Teléfono: +52 55 1234 5678 | Dirección: Av. Falsa 123, Ciudad de México</p>
+        <div class="social-icons">
+            <a href="https://facebook.com"><img src="images/facebook.png" alt="Facebook"></a>
+            <a href="https://x.com"><img src="images/x.png" alt="X"></a>
+            <a href="https://instagram.com"><img src="images/instagram.png" alt="Instagram"></a>
+        </div>
+    </footer>
+
+    <script>
+        const currentUser = localStorage.getItem('currentUser');
+        const loginLink = document.getElementById('loginLink');
+        const logoutLink = document.getElementById('logoutLink');
+        const profileIcon = document.getElementById('profileIcon');
+
+        if (currentUser) {
+            loginLink.style.display = 'none';
+            logoutLink.style.display = 'inline-block';
+            profileIcon.style.display = 'inline-block';
+            profileIcon.onclick = () => window.location.href = 'perfil.html';
+        }
+
+        logoutLink.onclick = (e) => {
+            e.preventDefault();
+            localStorage.removeItem('currentUser');
+            window.location.href = 'index.html';
+        };
+
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            if (answer.style.display === "block") {
+                answer.style.display = "none";
+            } else {
+                answer.style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>

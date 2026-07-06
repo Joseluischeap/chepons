@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pago - Jerseys Retro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .payment-section {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .cart-summary {
+            margin-bottom: 20px;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        .total {
+            font-size: 1.5em;
+            color: #e74c3c;
+            margin: 20px 0;
+        }
+        #paypal-button-container {
+            margin-top: 20px;
+        }
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            margin-top: 40px;
+        }
+        footer p {
+            margin: 0;
+            color: white;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Pago</h1>
+    </header>
+
+    <section class="payment-section">
+        <h2>Finalizar Compra</h2>
+        <div class="cart-summary" id="cartSummary"></div>
+        <p class="total" id="totalAmount">Total a pagar: $0.00</p>
+        <div id="paypal-button-container"></div>
+    </section>
+
+    <footer>
+        <p>© 2025 Jerseys Retro - Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- SDK de PayPal en modo sandbox -->
+    <script src="https://www.paypal.com/sdk/js?client-id=AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R&currency=USD"></script>
+    <script>
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0).toFixed(2);
+
+        function displayCartSummary() {
+            const cartSummary = document.getElementById('cartSummary');
+            const totalAmount = document.getElementById('totalAmount');
+
+            if (cart.length === 0) {
+                cartSummary.innerHTML = '<p>El carrito está vacío.</p>';
+                totalAmount.textContent = 'Total a pagar: $0.00';
+            } else {
+                cartSummary.innerHTML = cart.map(item => `
+                    <div class="cart-item">
+                        <span>${item.name}</span>
+                        <span>Cantidad: ${item.quantity}</span>
+                        <span>$${(item.price * item.quantity).toFixed(2)}</span>
+                    </div>
+                `).join('');
+                totalAmount.textContent = `Total a pagar: $${total}`;
+            }
+        }
+
+        paypal.Buttons({
+            env: 'sandbox', // Modo sandbox
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: total, // Total dinámico del carrito
+                            currency_code: 'USD'
+                        },
+                        description: 'Compra de Jerseys Retro'
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    alert('¡Pago completado con éxito! Gracias, ' + details.payer.name.given_name);
+                    // Limpiar el carrito después del pago exitoso
+                    localStorage.removeItem('cart');
+                    window.location.href = 'confirmacion.html'; // Opcional: redirigir a una página de confirmación
+                });
+            },
+            onError: function(err) {
+                console.error('Error en el pago:', err);
+                alert('Hubo un error al procesar el pago. Por favor, intenta de nuevo.');
+            }
+        }).render('#paypal-button-container');
+
+        window.onload = function() {
+            displayCartSummary();
+        };
+    </script>
+</body>
+</html>
